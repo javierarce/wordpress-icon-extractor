@@ -34,6 +34,15 @@ files
 
       if (svgElement) {
         let innerSVGContent = "";
+        const viewBox = svgElement.getAttribute("viewBox");
+        let minWidth = 0;
+        let minHeight = 0;
+        let width = ICON_SIZE;
+        let height = ICON_SIZE;
+
+        if (viewBox) {
+          [minWidth, minHeight, width, height] = viewBox.split(" ").map(Number);
+        }
 
         Array.from(svgElement.children).forEach((child) => {
           const serializer = new dom.window.XMLSerializer();
@@ -46,7 +55,7 @@ files
           .replace(/cliprule/g, "clip-rule")
           .replace(/xmlns=\"(.*?)\" /g, "");
 
-        data.push({ name, path: iconPath });
+        data.push({ name, path: iconPath, minWidth, minHeight, width, height });
       }
     } catch (error) {
       console.error(`Error processing ${file}: ${error}`);
@@ -54,7 +63,7 @@ files
   });
 
 data.forEach((icon) => {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">${icon.path}</svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${icon.minWidth} ${icon.minHeight} ${icon.width} ${icon.height}">${icon.path}</svg>`;
   fs.writeFileSync(path.join(__dirname, "icons", `${icon.name}.svg`), svg);
 });
 
@@ -66,12 +75,16 @@ const allIconsSvgContent = data
   .map((icon, index) => {
     const x = (index % ICONS_PER_ROW) * ICON_SIZE;
     const y = Math.floor(index / ICONS_PER_ROW) * ICON_SIZE;
-    return `<svg id="${icon.name}" x="${x}" y="${y}" width="${ICON_SIZE}" height="${ICON_SIZE}" viewBox="0 0 ${ICON_SIZE} ${ICON_SIZE}">${icon.path}</svg>`;
+    return `<svg id="${icon.name}" x="${x}" y="${y}" width="${ICON_SIZE}" height="${ICON_SIZE}" viewBox="${icon.minWidth} ${icon.minHeight} ${icon.width} ${icon.height}">${icon.path}</svg>`;
   })
   .join("");
 
+// Calculate the grid width and height
+const totalIcons = data.length;
+const rows = Math.ceil(totalIcons / ICONS_PER_ROW);
 const gridWidth = ICONS_PER_ROW * ICON_SIZE;
-const gridHeight = Math.ceil(data.length / ICONS_PER_ROW) * ICON_SIZE;
+const gridHeight = rows * ICON_SIZE;
+
 const allIconsSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${gridWidth}" height="${gridHeight}" viewBox="0 0 ${gridWidth} ${gridHeight}">${allIconsSvgContent}</svg>`;
 fs.writeFileSync(path.join(outputDir, "all.svg"), allIconsSvg);
 
