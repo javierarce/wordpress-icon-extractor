@@ -11,3 +11,11 @@ Programmatically export all the SVG icons from [@wordpress/icons](https://www.np
 
 The script will download all the icons into the `icons` folder and generate a sample grid in `icons/all.svg`.
 
+### Configuration
+
+By default the script will generate a grid with 16 icons per row and 24px size. You can change these values in the script.
+
+```JavaScript
+const ICONS_PER_ROW = 16;
+const ICON_SIZE = 24;
+```
