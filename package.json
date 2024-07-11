@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@wordpress/icons": "^9.48.0",
+    "@wordpress/icons": "10.3.0",
     "jsdom": "^24.0.0"
   }
 }
