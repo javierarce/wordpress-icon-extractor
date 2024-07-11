@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const { JSDOM } = require("jsdom");
-const { keywords } = require("./keywords");
 
 const libraryDir = path.join(
   __dirname,
@@ -39,23 +38,17 @@ files
         });
 
         const name = path.basename(file, ".js");
-        const iconKeywords = keywords[name] || [];
         const iconPath = innerSVGContent
           .replace(/fillrule/g, "fill-rule")
           .replace(/cliprule/g, "clip-rule")
           .replace(/xmlns=\"(.*?)\" /g, "");
 
-        data.push({ name, path: iconPath, keywords: iconKeywords });
+        data.push({ name, path: iconPath });
       }
     } catch (error) {
       console.error(`Error processing ${file}: ${error}`);
     }
   });
-
-fs.writeFileSync(
-  path.join(__dirname, "icons.ts"),
-  `export const iconsData = ${JSON.stringify(data, null, 2)};`,
-);
 
 data.forEach((icon) => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">${icon.path}</svg>`;
