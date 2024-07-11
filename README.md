@@ -13,7 +13,7 @@ The script will download all the icons into the `icons` folder and generate a sa
 
 ### Configuration
 
-By default the script will generate a grid with 16 icons per row and 24px size. You can change these values in the script.
+By default the script will generate a grid with 16 icons per row and 24px size per icon. You can change these values in the script.
 
 ```JavaScript
 const ICONS_PER_ROW = 16;
