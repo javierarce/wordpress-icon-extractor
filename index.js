@@ -105,8 +105,32 @@ function start() {
   );
   generateIconFiles(data);
   generateGrid(data, version);
+  updateReadme(version, data.length);
 
   return data;
+}
+function updateReadme(version, iconCount) {
+  const readmeBasePath = path.join(__dirname, "README.base.md");
+  const readmePath = path.join(__dirname, "README.md");
+
+  const readmeContent = `# WordPress Icon Extractor
+
+Programmatically export all the SVG icons from [@wordpress/icons](https://www.npmjs.com/package/@wordpress/icons).
+
+![Latest grid](grid-latest.svg)
+
+This repository contains ${iconCount} icons extracted from @wordpress/icons@${version}.
+
+Last updated: ${new Date().toISOString().split("T")[0]}
+`;
+
+  const readmeBaseContent = fs.readFileSync(readmeBasePath, "utf8");
+  const content = readmeContent + "\n" + readmeBaseContent;
+
+  fs.writeFileSync(readmePath, content);
+  console.log(
+    "- README.md has been updated with the current version and icon count.",
+  );
 }
 
 start();
