@@ -4,7 +4,7 @@ Programmatically export all the SVG icons from [@wordpress/icons](https://www.np
 This repository contains **286 icons** extracted from **@wordpress/icons@10.3.0**.
 
 <div style="text-align: center;">
-  <img src="grid-latest.svg" style="width: 100%; height: auto;" alt="WordPress Icons Grid">
+<img src="grid-latest.svg" style="width: 100%; height: auto;" alt="WordPress Icons Grid">
 </div>
 
 ### How to use
