@@ -33,6 +33,21 @@ function getVersion() {
   return packageJson.dependencies["@wordpress/icons"].replace(/[\^~]/, "");
 }
 
+function compareVersions(v1, v2) {
+  const parts1 = v1.split(".").map(Number);
+  const parts2 = v2.split(".").map(Number);
+
+  for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
+    const part1 = parts1[i] || 0;
+    const part2 = parts2[i] || 0;
+
+    if (part1 > part2) return 1;
+    if (part1 < part2) return -1;
+  }
+
+  return 0;
+}
+
 function parseSvgContent(filePath) {
   const fileContents = fs
     .readFileSync(filePath, "utf8")
@@ -84,7 +99,7 @@ function generateIconFiles(data, version) {
   }
 }
 
-function generateGrid(data, version) {
+function generateGrid(data, version, updateLatest = false) {
   spinner.text = "Compiling icons into a grid";
 
   try {
@@ -101,7 +116,10 @@ function generateGrid(data, version) {
     const allIconsSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${gridWidth}" height="${gridHeight}" viewBox="0 0 ${gridWidth} ${gridHeight}">${allIconsSvgContent}</svg>`;
 
     fs.writeFileSync(path.join(OUTPUT_DIR, `grid-${version}.svg`), allIconsSvg);
-    fs.writeFileSync(path.join(OUTPUT_DIR, `grid-latest.svg`), allIconsSvg);
+
+    if (updateLatest) {
+      fs.writeFileSync(path.join(OUTPUT_DIR, `grid-latest.svg`), allIconsSvg);
+    }
 
     spinner.succeed(
       `${data.length} icons have been successfully compiled into a grid and saved as grid-${version}.svg and grid-latest.svg.`,
@@ -168,9 +186,15 @@ function start() {
       .filter(Boolean);
 
     const version = getVersion();
+    const latestVersion = fs.readFileSync("latest-version.txt", "utf8");
+    const updateLatest = false;
+
+    if (compareVersions(version, latestVersion) > 0) {
+      fs.writeFileSync("latest-version.txt", version);
+    }
 
     generateIconFiles(data, version);
-    generateGrid(data, version);
+    generateGrid(data, version, updateLatest);
     updateReadme(version, data.length);
   } catch (error) {
     spinner.fail(`Error extracting icons: ${error.message}`);
