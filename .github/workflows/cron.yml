@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Run icon extractor
-        run: node index.js
+        run: npx npm-check-updates -u && npm install && node index.js
 
       - name: Commit and push if changed
         run: |
