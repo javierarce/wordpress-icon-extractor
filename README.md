@@ -2,11 +2,11 @@
 
 Programmatically export all the SVG icons from [@wordpress/icons](https://www.npmjs.com/package/@wordpress/icons).
 
-![Latest grid](grid-latest.svg)
+<div style="text-align: center;">
+  <img src="grid-latest.svg" style="max-width: 100%; height: auto;" alt="WordPress Icons Grid">
+</div>
 
 This repository contains 286 icons extracted from @wordpress/icons@10.3.0.
-
-Last updated: 2024-07-17
 
 ### How to use
 
@@ -28,3 +28,5 @@ By default the script will generate a grid with 16 icons per row and 16px size p
 const ICONS_PER_ROW = 16;
 const ICON_SIZE = 24;
 ```
+
+Last updated: 2024-07-17
