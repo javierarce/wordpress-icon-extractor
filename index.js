@@ -61,14 +61,22 @@ function parseSvgContent(filePath) {
   return null;
 }
 
-function generateIconFiles(data) {
+function generateIconFiles(data, version) {
   try {
+    if (!fs.existsSync(path.join(OUTPUT_DIR, version))) {
+      fs.mkdirSync(path.join(OUTPUT_DIR, version));
+    }
+
     data.forEach((icon) => {
       const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${icon.minWidth} ${icon.minHeight} ${icon.width} ${icon.height}">${icon.path}</svg>`;
-      fs.writeFileSync(path.join(OUTPUT_DIR, `${icon.name}.svg`), svgContent);
+      fs.writeFileSync(
+        path.join(OUTPUT_DIR, version, `${icon.name}.svg`),
+        svgContent,
+      );
     });
+
     spinner.succeed(
-      `Icons have been successfully created and saved to the icons directory.`,
+      `${data.length} icons have been successfully created and saved to the icons directory.`,
     );
   } catch (error) {
     spinner.fail(`Error generating icon files: ${error.message}`);
@@ -161,7 +169,7 @@ function start() {
 
     const version = getVersion();
 
-    generateIconFiles(data);
+    generateIconFiles(data, version);
     generateGrid(data, version);
     updateReadme(version, data.length);
   } catch (error) {
