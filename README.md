@@ -2,7 +2,7 @@
 
 Programmatically export all the SVG icons from [@wordpress/icons](https://www.npmjs.com/package/@wordpress/icons).
 
-![Sample grid](grid.png)
+![Latest grid](grid-latest.svg)
 
 ### How to use
 

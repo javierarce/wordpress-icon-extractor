@@ -78,6 +78,7 @@ function generateGrid(data, version) {
   const allIconsSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${gridWidth}" height="${gridHeight}" viewBox="0 0 ${gridWidth} ${gridHeight}">${allIconsSvgContent}</svg>`;
 
   fs.writeFileSync(`grid-${version}.svg`, allIconsSvg);
+  fs.writeFileSync(`grid-latest.svg`, allIconsSvg);
   console.log("- Icons successfully compiled into a grid.");
 }
 
