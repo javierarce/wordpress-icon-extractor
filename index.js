@@ -100,11 +100,11 @@ function generateGrid(data, version) {
     const gridHeight = Math.ceil(data.length / ICONS_PER_ROW) * ICON_SIZE;
     const allIconsSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${gridWidth}" height="${gridHeight}" viewBox="0 0 ${gridWidth} ${gridHeight}">${allIconsSvgContent}</svg>`;
 
-    fs.writeFileSync(`grid-${version}.svg`, allIconsSvg);
-    fs.writeFileSync(`grid-latest.svg`, allIconsSvg);
+    fs.writeFileSync(path.join(OUTPUT_DIR, `grid-${version}.svg`), allIconsSvg);
+    fs.writeFileSync(path.join(OUTPUT_DIR, `grid-latest.svg`), allIconsSvg);
 
     spinner.succeed(
-      `Icons have been successfully compiled into a grid and saved as grid-${version}.svg and grid-latest.svg.`,
+      `${data.length} icons have been successfully compiled into a grid and saved as grid-${version}.svg and grid-latest.svg.`,
     );
   } catch (error) {
     spinner.fail(`Error compiling icons into a grid: ${error.message}`);
