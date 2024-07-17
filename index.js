@@ -118,7 +118,7 @@ function updateReadme(version, iconCount) {
 Programmatically export all the SVG icons from [@wordpress/icons](https://www.npmjs.com/package/@wordpress/icons).
 
 <div style="text-align: center;">
-  <img src="grid-latest.svg" style="max-width: 100%; height: auto;" alt="WordPress Icons Grid">
+  <img src="grid-latest.svg" style="width: 100%; height: auto;" alt="WordPress Icons Grid">
 </div>
 
 This repository contains ${iconCount} icons extracted from @wordpress/icons@${version}.
