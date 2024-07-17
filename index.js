@@ -125,7 +125,7 @@ Programmatically export all the SVG icons from [@wordpress/icons](https://www.np
 This repository contains **${iconCount} icons** extracted from **@wordpress/icons@${version}**.
 
 <div style="text-align: center;">
-<img src="grid-latest.svg" style="width: 100%; height: auto;" alt="WordPress Icons Grid">
+<img src="icons/grid-latest.svg" style="width: 100%; height: auto;" alt="WordPress Icons Grid">
 </div>
 `;
 
@@ -135,7 +135,7 @@ This repository contains **${iconCount} icons** extracted from **@wordpress/icon
       "\n" +
       readmeBaseContent +
       "\n" +
-      `### Last updated\n\n${new Date().toISOString()}`;
+      `### Last updated\n\n${new Date().toISOString().split("T")[0]}`;
 
     fs.writeFileSync(readmePath, content);
 
