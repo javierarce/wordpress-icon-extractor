@@ -119,11 +119,14 @@ function generateGrid(data, version, updateLatest = false) {
 
     if (updateLatest) {
       fs.writeFileSync(path.join(OUTPUT_DIR, `grid-latest.svg`), allIconsSvg);
+      spinner.succeed(
+        `${data.length} icons have been successfully compiled into a grid and saved as grid-${version}.svg and updated as grid-latest.svg.`,
+      );
+    } else {
+      spinner.succeed(
+        `${data.length} icons have been successfully compiled into a grid and saved as grid-${version}.svg.`,
+      );
     }
-
-    spinner.succeed(
-      `${data.length} icons have been successfully compiled into a grid and saved as grid-${version}.svg and grid-latest.svg.`,
-    );
   } catch (error) {
     spinner.fail(`Error compiling icons into a grid: ${error.message}`);
     throw error;
@@ -187,9 +190,9 @@ function start() {
 
     const version = getVersion();
     const latestVersion = fs.readFileSync("latest-version.txt", "utf8");
-    const updateLatest = false;
+    let updateLatest = compareVersions(version, latestVersion) >= 0;
 
-    if (compareVersions(version, latestVersion) > 0) {
+    if (updateLatest) {
       fs.writeFileSync("latest-version.txt", version);
     }
 
