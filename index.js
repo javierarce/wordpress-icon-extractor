@@ -116,12 +116,11 @@ function updateReadme(version, iconCount) {
   const readmeContent = `# WordPress Icon Extractor
 
 Programmatically export all the SVG icons from [@wordpress/icons](https://www.npmjs.com/package/@wordpress/icons).
+This repository contains **${iconCount} icons** extracted from **@wordpress/icons@${version}**.
 
 <div style="text-align: center;">
   <img src="grid-latest.svg" style="width: 100%; height: auto;" alt="WordPress Icons Grid">
 </div>
-
-This repository contains ${iconCount} icons extracted from @wordpress/icons@${version}.
 `;
 
   const readmeBaseContent = fs.readFileSync(readmeBasePath, "utf8");
