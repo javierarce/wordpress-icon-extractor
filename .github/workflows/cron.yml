@@ -1,0 +1,31 @@
+name: Icon Extractor
+
+on:
+  schedule:
+    # Run at 00:00 UTC every day
+    - cron: "0 0 * * *"
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  extract-icons:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16" # or whichever version you prefer
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run icon extractor
+        run: node index.js
+
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'Javier Arce'
+          git config --global user.email '4933+javierarce@users.noreply.github.com'
+          git add -A
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update icons" && git push)
