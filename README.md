@@ -9,7 +9,12 @@ Programmatically export all the SVG icons from [@wordpress/icons](https://www.np
 1. Install dependencies with `yarn`.
 2. Run `yarn start`.
 
-The script will download all the icons into the `icons` folder and generate a sample grid in `icons/all.svg`.
+If there's a new version of the npm package, the script will automatically update the version in the `package.json` file and download the new icons.
+The script will then download all the icons into the `icons` folder and generate a sample grid SVG file at `grid-{package version}.svg`.
+
+### What to do after running the script
+
+If there are changes in the icons, you'll be able to see the SVG differences running git diff.
 
 ### Configuration
 

@@ -18,6 +18,13 @@ if (!fs.existsSync(OUTPUT_DIR)) {
   fs.mkdirSync(OUTPUT_DIR);
 }
 
+function getVersion() {
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(__dirname, "package.json"), "utf8"),
+  );
+  return packageJson.dependencies["@wordpress/icons"].replace(/[\^~]/, "");
+}
+
 function parseSvgContent(filePath) {
   const fileContents = fs
     .readFileSync(filePath, "utf8")
@@ -57,7 +64,7 @@ function generateIconFiles(data) {
   );
 }
 
-function generateGrid(data) {
+function generateGrid(data, version) {
   const allIconsSvgContent = data
     .map((icon, index) => {
       const x = (index % ICONS_PER_ROW) * ICON_SIZE;
@@ -70,10 +77,8 @@ function generateGrid(data) {
   const gridHeight = Math.ceil(data.length / ICONS_PER_ROW) * ICON_SIZE;
   const allIconsSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${gridWidth}" height="${gridHeight}" viewBox="0 0 ${gridWidth} ${gridHeight}">${allIconsSvgContent}</svg>`;
 
-  fs.writeFileSync(path.join(OUTPUT_DIR, "all.svg"), allIconsSvg);
-  console.log(
-    "- SVG icons have been successfully created and compiled into a grid.",
-  );
+  fs.writeFileSync(`grid-${version}.svg`, allIconsSvg);
+  console.log("- Icons successfully compiled into a grid.");
 }
 
 function start() {
@@ -92,8 +97,13 @@ function start() {
     })
     .filter(Boolean);
 
+  const version = getVersion();
+
+  console.log(
+    `Extracting ${data.length} icons from @wordpress/icons@${version}...`,
+  );
   generateIconFiles(data);
-  generateGrid(data);
+  generateGrid(data, version);
 
   return data;
 }
