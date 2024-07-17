@@ -127,7 +127,7 @@ This repository contains **${iconCount} icons** extracted from **@wordpress/icon
       "\n" +
       readmeBaseContent +
       "\n" +
-      `### Last updated\n\n${new Date().toISOString().split("T")[0]}`;
+      `### Last updated\n\n${new Date().toISOString()}`;
 
     fs.writeFileSync(readmePath, content);
 
