@@ -12,12 +12,14 @@ This repository contains **286 icons** extracted from **@wordpress/icons@10.3.0*
 1. Install dependencies with `yarn`.
 2. Run `yarn start`.
 
-If there's a new version of the npm package, the script will automatically update the version in the `package.json` file and download the new icons.
-The script will then download all the icons into the `icons` folder and generate a sample grid SVG file at `grid-{package version}.svg`.
+If there's a new version of the npm package, the script will automatically
+update the version in the `package.json` file and then download the new icons
+into the `icons` folder. After that task, it will generate a sample grid file and
+save it with the following name: `grid-{package-version}.svg`.
 
 ### What to do after running the script
 
-If there are changes in the icons, you'll be able to see the SVG differences running git diff.
+If there are changes in the icons, you'll be able to see the SVG differences running `git diff`.
 
 ### Configuration
 
