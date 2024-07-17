@@ -1,13 +1,14 @@
 {
   "name": "gutenberg-icons",
-    "version": "1.0.0",
-    "main": "index.js",
-    "scripts": {
-      "start": "node index.js"
-    },
-    "license": "MIT",
-    "dependencies": {
-      "@wordpress/icons": "10.3.0",
-      "jsdom": "^24.0.0"
-    }
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx npm-check-updates -u && npm install && node index.js",
+    "start-current": "node index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@wordpress/icons": "10.3.0",
+    "jsdom": "^24.1.0"
+  }
 }
