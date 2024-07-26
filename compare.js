@@ -2,6 +2,13 @@ import { execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 
+const args = process.argv.slice(2);
+
+if (args.length !== 2) {
+  console.error("Usage: yarn compare <version1> <version2>");
+  process.exit(1);
+}
+
 const colors = {
   reset: "\x1b[0m",
   bright: "\x1b[1m",
@@ -33,12 +40,6 @@ const colors = {
   },
 };
 
-const args = process.argv.slice(2);
-
-if (args.length !== 2) {
-  console.error("Usage: node compare.js <version1> <version2>");
-  process.exit(1);
-}
 const version1 = args[0];
 const version2 = args[1];
 

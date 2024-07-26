@@ -10,7 +10,7 @@ save it with the following name: `grid-{package-version}.svg`.
 
 ### What to do after running the script
 
-If there are changes in the icons, you'll be able to see the SVG differences running `git diff`.
+Run `yarn compare <version> <version>` to compare the icons between two versions.
 
 ### Configuration
 
