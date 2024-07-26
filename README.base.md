@@ -12,6 +12,8 @@ save it with the following name: `grid-{package-version}.svg`.
 
 Run `yarn compare <version> <version>` to compare the icons between two versions.
 
+![Example](./wordpress-icon-compare.mp4)
+
 ### Configuration
 
 By default the script will generate a grid with 16 icons per row and 16px size per icon. You can change these values in the script.
