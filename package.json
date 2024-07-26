@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "start": "npx npm-check-updates -u && npm install && node index.js",
-    "start-current": "node index.js"
+    "start-current": "node index.js",
+    "compare": "node compare.js"
   },
   "license": "MIT",
   "dependencies": {
-    "@wordpress/icons": "10.3.0",
+    "@wordpress/icons": "10.4.0",
     "jsdom": "^24.1.1",
     "ora": "^8.0.1"
   }
