@@ -4,8 +4,8 @@ import path from "path";
 
 const args = process.argv.slice(2);
 
-if (args.length !== 2) {
-  console.error("Usage: yarn compare <version1> <version2>");
+if (args.length < 2 || args.length > 3) {
+  console.error("Usage: yarn compare <version1> <version2> [--verbose]");
   process.exit(1);
 }
 
@@ -42,9 +42,20 @@ const colors = {
 
 const version1 = args[0];
 const version2 = args[1];
+const verbose = args.includes("--verbose");
 
 const dir1 = path.resolve(`icons/${version1}/`);
 const dir2 = path.resolve(`icons/${version2}/`);
+
+if (!fs.existsSync(dir1)) {
+  console.error(`${dir1} does not exist.`);
+  process.exit(1);
+}
+
+if (!fs.existsSync(dir2)) {
+  console.error(`${dir2} does not exist.`);
+  process.exit(1);
+}
 
 const files1 = fs.readdirSync(dir1).filter((file) => file.endsWith(".svg"));
 const files2 = fs.readdirSync(dir2).filter((file) => file.endsWith(".svg"));
@@ -52,6 +63,7 @@ const files2 = fs.readdirSync(dir2).filter((file) => file.endsWith(".svg"));
 const commonFiles = files1.filter((file) => files2.includes(file));
 const addedFiles = files2.filter((file) => !files1.includes(file));
 const removedFiles = files1.filter((file) => !files2.includes(file));
+const differences = [];
 const differentFiles = [];
 
 let sameCount = 0;
@@ -60,31 +72,48 @@ let diffCount = 0;
 commonFiles.forEach((file) => {
   const filePath1 = path.join(dir1, file);
   const filePath2 = path.join(dir2, file);
-  const command = `git diff --word-diff=color --color "${filePath1}" "${filePath2}"`;
+
+  if (!fs.existsSync(filePath1)) {
+    console.error(`File ${filePath1} does not exist in ${version1} directory.`);
+    return;
+  } else if (!fs.existsSync(filePath2)) {
+    console.error(`File ${filePath2} does not exist in ${version2} directory.`);
+    return;
+  } else if (!fs.statSync(filePath1).isFile()) {
+    console.error(`Path is not a file: ${filePath1}`);
+    return;
+  } else if (!fs.statSync(filePath2).isFile()) {
+    console.error(`Path is not a file: ${filePath2}`);
+    return;
+  }
+
   try {
-    const diffOutput = execSync(command, { encoding: "utf8" });
-    if (diffOutput.trim()) {
-      console.log(`${colors.fg.cyan}Differences in ${file}:${colors.reset}\n`);
-      console.log(diffOutput);
+    execSync(`diff --color=always ${filePath1} ${filePath2}`, {
+      encoding: "utf8",
+    });
+    sameCount++;
+  } catch (error) {
+    if (error.status === 1) {
+      if (verbose) {
+        differences.push({ file, output: error.stdout });
+      }
       differentFiles.push(file);
       diffCount++;
     } else {
-      sameCount++;
+      console.error(
+        `${colors.fg.red}Error comparing ${file}:${colors.reset}`,
+        error.message,
+      );
     }
-  } catch (error) {
-    console.error(
-      `${colors.fg.red}Error comparing ${file}:${colors.reset}`,
-      error.message,
-    );
   }
 });
 
 console.log(
-  `\n${colors.bright}${colors.fg.yellow}Differences between ${version1} and ${version2}: ${colors.reset}`,
+  `\n${colors.bright}${colors.fg.white}Differences between ${version1} (${files1.length}) and ${version2} (${files2.length}): ${colors.reset}`,
 );
-console.log(`${colors.fg.green}Identical files: ${sameCount}${colors.reset}`);
 
-console.log(`${colors.fg.red}Different files: ${diffCount}${colors.reset}`);
+console.log(`\n${colors.fg.green}Identical files: ${sameCount}${colors.reset}`);
+console.log(`\n${colors.fg.red}Different files: ${diffCount}${colors.reset}`);
 if (differentFiles.length) {
   differentFiles.forEach((file) =>
     console.log(`- ${colors.fg.red}${file}${colors.reset}`),
@@ -92,9 +121,8 @@ if (differentFiles.length) {
 }
 
 console.log(
-  `${colors.fg.blue}Added files: ${addedFiles.length}${colors.reset}`,
+  `\n${colors.fg.blue}Added files: ${addedFiles.length}${colors.reset}`,
 );
-
 if (addedFiles.length) {
   addedFiles.forEach((file) =>
     console.log(`- ${colors.fg.blue}${file}${colors.reset}`),
@@ -102,11 +130,22 @@ if (addedFiles.length) {
 }
 
 console.log(
-  `${colors.fg.magenta}Removed files: ${removedFiles.length}${colors.reset}`,
+  `\n${colors.fg.magenta}Removed files: ${removedFiles.length}${colors.reset}`,
 );
-
 if (removedFiles.length) {
   removedFiles.forEach((file) =>
     console.log(`- ${colors.fg.magenta}${file}${colors.reset}`),
   );
+}
+
+if (verbose && differences.length) {
+  console.log(
+    `\n\n${colors.fg.white}${colors.bright}Differences:${colors.reset}\n`,
+  );
+  differences.forEach((diff) => {
+    console.log(
+      `${colors.fg.red}${colors.bright}${diff.file}${colors.reset}:\n`,
+    );
+    console.log(diff.output);
+  });
 }
