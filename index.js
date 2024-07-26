@@ -156,8 +156,7 @@ This repository contains **${iconCount} icons** extracted from **@wordpress/icon
       "\n" +
       readmeBaseContent +
       "\n" +
-      `### Last updated\n\n
-      This repository gets updated automatically. The last update was on: ${new Date().toISOString().split("T")[0]}`;
+      `### Last updated\n\nThis repository gets updated automatically. The last update was on: ${new Date().toISOString().split("T")[0]}`;
 
     fs.writeFileSync(readmePath, content);
 
