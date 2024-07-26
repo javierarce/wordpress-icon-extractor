@@ -34,4 +34,6 @@ const ICON_SIZE = 24;
 
 ### Last updated
 
-This repository gets updated automatically. The last update was on: 2024-07-26
+This repository gets updated automatically with the latest version of @wordpress/icons.
+
+The last update was on: 2024-07-26
