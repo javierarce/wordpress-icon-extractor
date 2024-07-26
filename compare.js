@@ -81,7 +81,7 @@ commonFiles.forEach((file) => {
 console.log(
   `\n${colors.bright}${colors.fg.yellow}Differences between ${version1} and ${version2}: ${colors.reset}`,
 );
-console.log(`${colors.fg.green}Same files: ${sameCount}${colors.reset}`);
+console.log(`${colors.fg.green}Identical files: ${sameCount}${colors.reset}`);
 
 console.log(`${colors.fg.red}Different files: ${diffCount}${colors.reset}`);
 if (differentFiles.length) {
