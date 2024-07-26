@@ -12,7 +12,7 @@ save it with the following name: `grid-{package-version}.svg`.
 
 Run `yarn compare <version> <version>` to compare the icons between two versions.
 
-![Example](./wordpress-icon-compare.mp4)
+https://github.com/user-attachments/assets/eb03431a-6bd7-460a-85c7-550b6a8956ac
 
 ### Configuration
 
