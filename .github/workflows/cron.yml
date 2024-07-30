@@ -35,3 +35,25 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
+
+      - name: Create release and tag
+        run: |
+          VERSION=$(cat latest-version.txt)
+          if ! git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            git tag -a "v$VERSION" -m "Version $VERSION"
+            git push origin "v$VERSION"
+            echo "Created and pushed tag v$VERSION"
+
+            zip -r icons.zip icons/$VERSION icons/grid-$VERSION.svg
+
+            gh release create "v$VERSION" icons.zip \
+              --title "Release $VERSION" \
+              --notes "Automated release for version $VERSION" \
+              --target main
+            
+            echo "Created release v$VERSION with icons"
+          else
+            echo "Tag v$VERSION already exists, skipping release creation"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
