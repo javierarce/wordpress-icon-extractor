@@ -1,7 +1,7 @@
 # WordPress Icon Extractor
 
 Programmatically export all the SVG icons from [@wordpress/icons](https://www.npmjs.com/package/@wordpress/icons).
-This repository contains **286 icons** extracted from **@wordpress/icons@10.4.0**.
+This repository contains **288 icons** extracted from **@wordpress/icons@10.5.0**.
 
 <div style="text-align: center;">
 <img src="icons/grid-latest.svg" style="width: 100%; height: auto;" alt="WordPress Icons Grid">
@@ -35,4 +35,4 @@ const ICON_SIZE = 24;
 ### Last updated
 
 This repository gets updated automatically with the latest version of @wordpress/icons.  
-The last update was on: 2024-08-07
+The last update was on: 2024-08-08
