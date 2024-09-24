@@ -36,3 +36,17 @@ const ICON_SIZE = 24;
 
 This repository gets updated automatically with the latest version of @wordpress/icons.  
 The last update was on: 2024-09-24
+### Changes from version 10.8.0 to 10.8.0
+
+```
+
+[1m[37mDifferences between 10.8.0 (294) and 10.8.0 (294): [0m
+
+[32mIdentical files: 294[0m
+
+[31mDifferent files: 0[0m
+
+[34mAdded files: 0[0m
+
+[35mRemoved files: 0[0m
+```
