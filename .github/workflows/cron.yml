@@ -25,12 +25,35 @@ jobs:
       - name: Run icon extractor
         run: npx npm-check-updates -u && npm install && node index.js
 
+      - name: Get previous version
+        id: prev_version
+        run: echo "prev_version=$(cat latest-version.txt)" >> $GITHUB_OUTPUT
+
+      - name: Get current version
+        id: curr_version
+        run: |
+          VERSION=$(node -p "require('./package.json').dependencies['@wordpress/icons'].replace(/[\^~]/, '')")
+          echo "curr_version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Compare versions and update README
+        run: |
+          PREV_VERSION=${{ steps.prev_version.outputs.prev_version }}
+          CURR_VERSION=${{ steps.curr_version.outputs.curr_version }}
+          COMPARISON=$(node compare.js $PREV_VERSION $CURR_VERSION)
+
+          # Update README with comparison results
+          sed -i '/^### Changes/,/^$/d' README.md  # Remove existing Changes section
+          echo -e "\n### Changes from version $PREV_VERSION to $CURR_VERSION\n" >> README.md
+          echo '```' >> README.md
+          echo "$COMPARISON" >> README.md
+          echo '```' >> README.md
+
       - name: Commit and push if changed
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add -A
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update icons")
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update icons and README")
           git pull --rebase
           git push
         env:
