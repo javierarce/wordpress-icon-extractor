@@ -42,11 +42,22 @@ jobs:
             COMPARISON=$(node compare.js $PREV_VERSION $CURR_VERSION --no-color)
             
             # Update README with comparison results
-            sed -i '/^### Changes/,/^$/d' README.md  # Remove existing Changes section
-            echo -e "\n### Changes from version $PREV_VERSION to $CURR_VERSION\n" >> README.md
+            sed -i '/^### Changelog/,/^$/d' README.md  # Remove existing Changelog section
+            echo -e "\n### Changelog\n" >> README.md
+            echo -e "#### Changes from version $PREV_VERSION to $CURR_VERSION\n" >> README.md
             echo '```' >> README.md
             echo "$COMPARISON" >> README.md
             echo '```' >> README.md
+            
+            # Append previous changelog entries
+            if [ -f CHANGELOG.md ]; then
+              echo -e "\n" >> README.md
+              tail -n +3 CHANGELOG.md >> README.md  # Append all but the first two lines of CHANGELOG.md
+            fi
+            
+            # Update CHANGELOG.md
+            echo -e "### Changelog\n" > CHANGELOG.md
+            sed -n '/^### Changelog/,$ p' README.md >> CHANGELOG.md
           else
             echo "No version change detected. Skipping comparison."
           fi
