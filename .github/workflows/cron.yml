@@ -14,6 +14,7 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           fetch-depth: 0
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
@@ -27,26 +28,28 @@ jobs:
 
       - name: Get previous version
         id: prev_version
-        run: echo "prev_version=$(cat latest-version.txt)" >> $GITHUB_OUTPUT
+        run: echo "prev_version=$(cat previous-version.txt)" >> $GITHUB_OUTPUT
 
       - name: Get current version
         id: curr_version
-        run: |
-          VERSION=$(node -p "require('./package.json').dependencies['@wordpress/icons'].replace(/[\^~]/, '')")
-          echo "curr_version=$VERSION" >> $GITHUB_OUTPUT
+        run: echo "curr_version=$(cat latest-version.txt)" >> $GITHUB_OUTPUT
 
       - name: Compare versions and update README
         run: |
           PREV_VERSION=${{ steps.prev_version.outputs.prev_version }}
           CURR_VERSION=${{ steps.curr_version.outputs.curr_version }}
-          COMPARISON=$(node compare.js $PREV_VERSION $CURR_VERSION)
-
-          # Update README with comparison results
-          sed -i '/^### Changes/,/^$/d' README.md  # Remove existing Changes section
-          echo -e "\n### Changes from version $PREV_VERSION to $CURR_VERSION\n" >> README.md
-          echo '```' >> README.md
-          echo "$COMPARISON" >> README.md
-          echo '```' >> README.md
+          if [ "$PREV_VERSION" != "$CURR_VERSION" ]; then
+            COMPARISON=$(node compare.js $PREV_VERSION $CURR_VERSION --no-color)
+            
+            # Update README with comparison results
+            sed -i '/^### Changes/,/^$/d' README.md  # Remove existing Changes section
+            echo -e "\n### Changes from version $PREV_VERSION to $CURR_VERSION\n" >> README.md
+            echo '```' >> README.md
+            echo "$COMPARISON" >> README.md
+            echo '```' >> README.md
+          else
+            echo "No version change detected. Skipping comparison."
+          fi
 
       - name: Commit and push if changed
         run: |

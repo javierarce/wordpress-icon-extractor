@@ -188,17 +188,18 @@ function start() {
       })
       .filter(Boolean);
 
-    const version = getVersion();
-    const latestVersion = fs.readFileSync("latest-version.txt", "utf8");
-    let updateLatest = compareVersions(version, latestVersion) >= 0;
+    const currentVersion = getVersion();
+    const previousVersion = fs.readFileSync("latest-version.txt", "utf8");
+    let updateLatest = compareVersions(currentVersion, previousVersion) >= 0;
 
     if (updateLatest) {
-      fs.writeFileSync("latest-version.txt", version);
+      fs.writeFileSync("previous-version.txt", previousVersion);
+      fs.writeFileSync("latest-version.txt", currentVersion);
     }
 
-    generateIconFiles(data, version);
-    generateGrid(data, version, updateLatest);
-    updateReadme(version, data.length);
+    generateIconFiles(data, currentVersion);
+    generateGrid(data, currentVersion, updateLatest);
+    updateReadme(currentVersion, data.length);
   } catch (error) {
     spinner.fail(`Error extracting icons: ${error.message}`);
     throw error;
