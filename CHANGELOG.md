@@ -2,6 +2,27 @@
 
 ### Changelog
 
+#### Changes from version 10.9.0 to 10.10.0
+
+```
+
+Differences between 10.9.0 (297) and 10.10.0 (298): 
+
+Identical files: 295
+
+Different files: 2
+- cloud-upload.svg
+- unseen.svg
+
+Added files: 1
+- cloud-download.svg
+
+Removed files: 0
+```
+
+
+### Changelog
+
 #### Changes from version 10.8.0 to 10.9.0
 
 ```

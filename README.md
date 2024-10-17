@@ -1,7 +1,7 @@
 # WordPress Icon Extractor
 
 Programmatically export all the SVG icons from [@wordpress/icons](https://www.npmjs.com/package/@wordpress/icons).
-This repository contains **297 icons** extracted from **@wordpress/icons@10.9.0**.
+This repository contains **298 icons** extracted from **@wordpress/icons@10.10.0**.
 
 <div style="text-align: center;">
 <img src="icons/grid-latest.svg" style="width: 100%; height: auto;" alt="WordPress Icons Grid">
@@ -35,4 +35,64 @@ const ICON_SIZE = 24;
 ### Last updated
 
 This repository gets updated automatically with the latest version of @wordpress/icons.  
-The last update was on: 2024-10-16
+The last update was on: 2024-10-17
+### Changelog
+
+#### Changes from version 10.9.0 to 10.10.0
+
+```
+
+Differences between 10.9.0 (297) and 10.10.0 (298): 
+
+Identical files: 295
+
+Different files: 2
+- cloud-upload.svg
+- unseen.svg
+
+Added files: 1
+- cloud-download.svg
+
+Removed files: 0
+```
+
+
+### Changelog
+
+#### Changes from version 10.8.0 to 10.9.0
+
+```
+
+Differences between 10.8.0 (294) and 10.9.0 (297): 
+
+Identical files: 294
+
+Different files: 0
+
+Added files: 3
+- arrow-down-right.svg
+- arrow-up-left.svg
+- envelope.svg
+
+Removed files: 0
+```
+
+
+#### Changes from version 10.7.0 to 10.8.0
+
+```
+
+Differences between 10.7.0 (290) and 10.8.0 (294):
+
+Identical files: 290
+
+Different files: 0
+
+Added files: 4
+- background.svg
+- bell-unread.svg
+- bell.svg
+- square.svg
+
+Removed files: 0
+```
