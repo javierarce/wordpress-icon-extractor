@@ -2,6 +2,29 @@
 
 ### Changelog
 
+#### Changes from version 10.10.0 to 10.11.0
+
+```
+
+Differences between 10.10.0 (298) and 10.11.0 (303): 
+
+Identical files: 298
+
+Different files: 0
+
+Added files: 5
+- justify-bottom.svg
+- justify-center-vertical.svg
+- justify-space-between-vertical.svg
+- justify-stretch-vertical.svg
+- justify-top.svg
+
+Removed files: 0
+```
+
+
+### Changelog
+
 #### Changes from version 10.9.0 to 10.10.0
 
 ```
