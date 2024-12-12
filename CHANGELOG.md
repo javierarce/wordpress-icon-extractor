@@ -2,6 +2,24 @@
 
 ### Changelog
 
+#### Changes from version 10.13.0 to 10.14.0
+
+```
+
+Differences between 10.13.0 (303) and 10.14.0 (303): 
+
+Identical files: 303
+
+Different files: 0
+
+Added files: 0
+
+Removed files: 0
+```
+
+
+### Changelog
+
 #### Changes from version 10.12.0 to 10.13.0
 
 ```
