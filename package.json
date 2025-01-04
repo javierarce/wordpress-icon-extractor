@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@wordpress/icons": "10.14.0",
+    "@wordpress/icons": "10.15.1",
     "jsdom": "^25.0.1",
     "ora": "^8.1.1"
   }

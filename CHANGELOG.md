@@ -2,6 +2,29 @@
 
 ### Changelog
 
+#### Changes from version 10.14.0 to 10.15.1
+
+```
+
+Differences between 10.14.0 (303) and 10.15.1 (305): 
+
+Identical files: 301
+
+Different files: 1
+- info.svg
+
+Added files: 3
+- caution-filled.svg
+- caution.svg
+- error.svg
+
+Removed files: 1
+- warning.svg
+```
+
+
+### Changelog
+
 #### Changes from version 10.13.0 to 10.14.0
 
 ```
