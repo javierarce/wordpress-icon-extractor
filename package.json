@@ -12,6 +12,6 @@
   "dependencies": {
     "@wordpress/icons": "10.17.0",
     "jsdom": "^26.0.0",
-    "ora": "^8.1.1"
+    "ora": "^8.2.0"
   }
 }
