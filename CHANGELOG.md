@@ -2,6 +2,24 @@
 
 ### Changelog
 
+#### Changes from version 10.20.0 to 10.21.0
+
+```
+
+Differences between 10.20.0 (305) and 10.21.0 (305): 
+
+Identical files: 305
+
+Different files: 0
+
+Added files: 0
+
+Removed files: 0
+```
+
+
+### Changelog
+
 #### Changes from version 10.19.0 to 10.20.0
 
 ```
