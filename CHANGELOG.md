@@ -2,6 +2,24 @@
 
 ### Changelog
 
+#### Changes from version 10.29.0 to 10.30.0
+
+```
+
+Differences between 10.29.0 (5) and 10.30.0 (5): 
+
+Identical files: 5
+
+Different files: 0
+
+Added files: 0
+
+Removed files: 0
+```
+
+
+### Changelog
+
 #### Changes from version 10.26.0 to 10.27.0
 
 ```
